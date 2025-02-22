@@ -8,6 +8,8 @@ load_dotenv()
 
 client = OpenAI()
 
+
+
 def create_request(prompt):
     history = db.query_db(prompt)
     print("History: \n---------------", history, "\n---------------")
