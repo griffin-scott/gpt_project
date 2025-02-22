@@ -1,0 +1,57 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv
+venv
+env
+ENV
+*.env
+
+# Distribution / packaging
+.eggs
+*.egg
+sdist
+dist
+wheels
+*.whl
+build
+develop-eggs
+parts
+bin
+var
+lib
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+pip-download-cache
+
+# Unit test / coverage reports
+htmlcov
+.tox
+.nox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.log
+*.rpt
+*.db
+
+# mypy
+.mypy_cache
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# OS or Editor-specific files
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp

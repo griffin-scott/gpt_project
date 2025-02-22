@@ -1,0 +1,45 @@
+html, body, #root {
+    height: 100%;
+    background-color: rgb(83,83,83);
+    color: white;
+}
+
+.ChatHistory {
+    max-height: 80% !important;
+}
+
+.chatBox {
+    width: fit-content !important;
+    max-width: 70% !important;
+}
+
+/*------------ Assistant Chat Stylings  ------------*/
+
+.assistantName {
+    color: rgb(255, 255, 255)
+}
+
+.assistantBg {
+    background-color: rgb(33, 32, 32);
+}
+
+.assistantDiv {
+    display: flex;
+    justify-content: start;
+}
+
+/*------------ User Chat Stylings  ------------*/
+.userDiv {
+    display: flex;
+    justify-content: end;
+    text-align: end;
+}
+
+.userName {
+    color:rgb(187, 246, 249);
+}
+
+.userBg {
+    background-color: rgb(116, 158, 158);
+    width: fit-content !important;
+}
