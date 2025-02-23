@@ -110,3 +110,21 @@ def drop_db():
     client.close()
 
     return res
+
+def user_login(username, password):
+    client = pymongo.MongoClient(uri)
+    database = client["DB"]
+    collection = database["users"]
+
+    user = collection.find_one({ 'username': username })
+
+    print("\n\n\n\n\nuser:", user, "\n\n\n\n\n\n")
+
+    if (user):
+        hashed_password = util.hash_string( password )
+        if (hashed_password == user['password']):
+            return "user login successful"
+        else:
+            return "password is incorrect"
+    else:
+        return "user does not exist"

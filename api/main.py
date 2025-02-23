@@ -57,3 +57,8 @@ def get_user(user_id):
     user = user_db.get_user(user_id)
 
     return user
+
+@app.post("/users/login")
+def user_login(req: dict):
+    res = user_db.user_login(req['username'], req['password'])
+    return res
