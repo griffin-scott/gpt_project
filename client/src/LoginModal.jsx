@@ -1,8 +1,10 @@
-import "./LoginModal.css";
+import UserContext from "./UserContext";
+import { useContext } from "react";
 
 function LoginModal() {
-    const attemptLogin = async (username, password) => {
+    const { user, setUser } = useContext(UserContext);
 
+    const attemptLogin = async (username, password) => {
         let res = await fetch("http://localhost:8000/users/login", {
             method: "POST",
             headers: {
@@ -11,12 +13,14 @@ function LoginModal() {
             body: JSON.stringify({ username, password }),
         });
 
-        if (res.status === 200) {
-            let data = await res.json();
-            console.log(data);
+        let data = await res.json();
+
+        if (data.status === 200) {
+            document.getElementById("closeLoginModal").click();
+            setUser(data.user_id);
         }
         else {
-            console.log("Login failed");
+            console.log(data.message);
         }
     };
 
@@ -39,18 +43,18 @@ function LoginModal() {
     return (
         <div
             className="LoginModal modal fade"
-            id="exampleModal"
+            id="login_modal"
             tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
+            aria-labelledby="login_modalLabel"
             aria-hidden="true"
         >
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">
+                        <h1 className="modal-title fs-5" id="login_modalLabel">
                             Log In
                         </h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeLoginModal"></button>
                     </div>
                     <div className="modal-body">
                         <form action="submit" onSubmit={handleOnSubmit}>

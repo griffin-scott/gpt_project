@@ -26,14 +26,14 @@ def get_root():
 def get_status():
     return {"status": "up and running"}
 
-@app.post("/prompt")
-def create_prompt(req: dict):
-    r = gpt.create_request(req['prompt'])
+@app.post("/prompt/{user_id}")
+def create_prompt(req: dict, user_id):
+    r = gpt.create_request(req['prompt'], user_id)
     return {"message": r["response"], "history": r["history"]}
 
 @app.delete("/database")
 def delete_database():
-    res = db.drop_db()
+    res = user_db.drop_db()
     return res
 
 @app.post("/users")
@@ -42,21 +42,28 @@ def create_user(req: dict):
     res = user_db.create_user(fields)
     return res
 
-@app.post("/users/{user_id}/chats")
+@app.post("/users/chats")
 def create_user_chat(req: dict):
 
     print("\n\n", req['prompt'], req['user_id'], "\n\n")
 
-    r = gpt.create_request(req['prompt'])
-    user_res = user_db.create_chat(req['prompt'], req['user_id'])
-    gpt_res = user_db.create_res(r['response'], req['user_id'])
-    return {"user_res": user_res, "gpt_res": gpt_res}
+    r = gpt.create_request(req['prompt'], req['user_id'])
+    user_db.create_chat(req['prompt'], req['user_id'])
+    user_db.create_res(r['response'], req['user_id'])
+
+    history = user_db.get_chats(req['user_id'])
+    return history
 
 @app.get("/users/{user_id}")
 def get_user(user_id):
     user = user_db.get_user(user_id)
 
     return user
+
+@app.get("/users/{user_id}/chats")
+def get_user_chats(user_id):
+    history = user_db.get_chats(user_id)
+    return history
 
 @app.post("/users/login")
 def user_login(req: dict):

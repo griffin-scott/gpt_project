@@ -10,8 +10,8 @@ client = OpenAI()
 
 
 
-def create_request(prompt):
-    history = db.query_db(prompt)
+def create_request(prompt, user_id):
+    history = db.query_db(prompt, user_id)
     print("History: \n---------------", history, "\n---------------")
     completion = client.chat.completions.create(
         model="gpt-4o",
@@ -19,13 +19,6 @@ def create_request(prompt):
     )
     response = completion.choices[0].message.content
 
-    db.insert_res(response)
-
     print("\n" + response, "\n")
     print("\n-------------------------\n")
     return {"response": response, "history": history}
-
-
-# import pprint
-    # print("\n",  pprint.pprint(dict(completion)), "\n")
-    # print("\n-------------------------\n")

@@ -1,5 +1,4 @@
 let Loading = ({ isLoading, prompt }) => {
-    console.log("in Loading", prompt)
     if (isLoading) {
         return (
             <>

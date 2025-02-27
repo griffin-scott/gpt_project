@@ -20,7 +20,7 @@ uri = os.environ.get("MONGODB_URI")
 
 
 
-def query_db(prompt):
+def query_db(prompt, user_id):
     client = pymongo.MongoClient(uri)
     database = client["ChatHistory"]
     collection = database["chats"]

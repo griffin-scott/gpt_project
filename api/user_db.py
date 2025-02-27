@@ -33,7 +33,9 @@ def create_user(fields):
 
     uid = insert_result.inserted_id
 
-    return {"result": f"inserted user with id {uid}"}
+    login_result = user_login(fields["username"], fields["password"])
+
+    return {"login_result": login_result, "signup_result": f"inserted user with id {uid}"}
 
 #----------- GET User -----------#
 def get_user(user_id):
@@ -54,10 +56,9 @@ def get_chats(user_id):
     database = client["DB"]
     collection = database["chats"]
 
-    chat_history = list(collection.find({ 'user_id': user_id }))
+    chat_history = list(collection.find({ 'user_id': user_id }, { '_id': 0}))
 
     client.close()
-    # might have to sort array
     return chat_history
 
 
@@ -116,15 +117,15 @@ def user_login(username, password):
     database = client["DB"]
     collection = database["users"]
 
-    user = collection.find_one({ 'username': username })
+    user = collection.find_one({ 'username': username }, {'_id': 0})
 
     print("\n\n\n\n\nuser:", user, "\n\n\n\n\n\n")
 
     if (user):
         hashed_password = util.hash_string( password )
         if (hashed_password == user['password']):
-            return "user login successful"
+            return { "status": 200, "user_id": user['user_id'] }
         else:
-            return "password is incorrect"
+            return { "status": 404, "message": "password is incorrect"}
     else:
-        return "user does not exist"
+        return { "status": 404, "message": "user does not exist" }

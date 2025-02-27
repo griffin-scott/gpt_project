@@ -6,6 +6,11 @@ html, body, #root {
 
 .ChatHistory {
     max-height: 80% !important;
+    background-color: rgb(83,83,83);
+}
+
+.ChatHistory::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
 }
 
 .chatBox {
@@ -42,4 +47,14 @@ html, body, #root {
 .userBg {
     background-color: rgb(116, 158, 158);
     width: fit-content !important;
+}
+
+
+/*------------ Last Minute Stylings  ------------*/
+.ChatBar{
+    height: 90% !important;
+}
+
+.LoginButtons {
+    max-height: 10% !important;
 }
